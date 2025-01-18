@@ -56,7 +56,7 @@ const Header = () => {
 
   return (
     <div className="p-5 h-fit w-full flex justify-between text-gray-800 text-3xl font-bold items-center bg-white border-b border-l border-gray-900">
-      {headerMap[pathname].title}
+      {headerMap[pathname]?.title || "Default Title"}
     </div>
   );
 };

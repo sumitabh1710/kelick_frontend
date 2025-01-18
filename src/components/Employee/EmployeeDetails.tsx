@@ -145,33 +145,20 @@ const EmployeeDetails = () => {
 
   useEffect(() => {
     setTableData(
-      data.filter((each: any) =>
-        each["Employee Profile"]
+      data.filter((each: any) => {
+        const matchesSearch = each["Employee Profile"]
           .toLowerCase()
-          .includes(searchValue.toLowerCase())
-      )
+          .includes(searchValue.toLowerCase());
+
+        const matchesStatus =
+          selectedStatus === "" || each.Status === selectedStatus;
+
+        const matchesRole = selectedRole === "" || each.Role === selectedRole;
+
+        return matchesSearch && matchesStatus && matchesRole;
+      })
     );
-  }, [searchValue]);
-
-  useEffect(() => {
-    if (selectedStatus === "") {
-      setTableData(data);
-    } else {
-      setTableData((prev) =>
-        prev.filter((each: any) => each.Status === selectedStatus)
-      );
-    }
-  }, [selectedStatus]);
-
-  useEffect(() => {
-    if (selectedRole === "") {
-      setTableData(data);
-    } else {
-      setTableData((prev) =>
-        prev.filter((each: any) => each.Role === selectedRole)
-      );
-    }
-  }, [selectedRole]);
+  }, [searchValue, selectedStatus, selectedRole]);
 
   return (
     <div className="flex flex-col w-full h-full">
@@ -312,6 +299,7 @@ const EmployeeDetails = () => {
             <div className="w-[150px]">
               <Dropdown
                 options={[...new Set(data.map((each) => each.Status))]}
+                value={selectedStatus}
                 defaultOption="All Status"
                 onSelect={handleStatusOnChange}
               />
@@ -320,6 +308,7 @@ const EmployeeDetails = () => {
               <Dropdown
                 options={[...new Set(data.map((each) => each.Role))]}
                 defaultOption="All Role"
+                value={selectedRole}
                 onSelect={handleRoleOnChange}
               />
             </div>

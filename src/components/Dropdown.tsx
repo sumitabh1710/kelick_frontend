@@ -3,10 +3,16 @@ import React from "react";
 interface DropdownProps {
   options: string[];
   defaultOption: string;
+  value: string;
   onSelect: (selectedOption: string) => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, defaultOption, onSelect }) => {
+const Dropdown: React.FC<DropdownProps> = ({
+  options,
+  defaultOption,
+  value,
+  onSelect,
+}) => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     onSelect(event.target.value);
   };
@@ -16,9 +22,9 @@ const Dropdown: React.FC<DropdownProps> = ({ options, defaultOption, onSelect })
       <select
         className="w-full h-full text-gray-700 focus:outline-none"
         onChange={handleChange}
-        defaultValue=""
+        value={value}
       >
-        <option value="w-full">
+        <option value={defaultOption} className="text-gray-700 w-full">
           {defaultOption}
         </option>
         {options.map((option, index) => (

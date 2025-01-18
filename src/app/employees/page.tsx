@@ -42,7 +42,7 @@ const EmployeesPage = () => {
         <div className="w-full h-full flex items-center justify-center">
           <Loader />
         </div>
-      ) : !isDetailsLoaded ? (
+      ) : isDetailsLoaded ? (
         <EmployeeDetails />
       ) : (
         <div className="h-[calc(100vh-200px)] border border-gray-500 w-full flex flex-col gap-6 justify-center items-center bg-white rounded-xl">
